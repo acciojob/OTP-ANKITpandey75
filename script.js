@@ -2,28 +2,30 @@ const codes = document.querySelectorAll(".code");
 
 codes[0].focus();
 
-codes.forEach((code, index) => {
+codes.forEach((code, idx) => {
 
-    code.addEventListener("input", (e) => {
+    code.addEventListener("keydown", (e) => {
 
-        code.value = e.target.value.replace(/[^0-9]/g, "").slice(0, 1);
-
-        if (code.value && index < codes.length - 1) {
-            codes[index + 1].focus();
+        if (e.key >= 0 && e.key <= 9) {
+            code.value = "";
         }
 
     });
 
-    code.addEventListener("keydown", (e) => {
+    code.addEventListener("keyup", (e) => {
+
+        if (e.key >= 0 && e.key <= 9) {
+
+            if (idx < codes.length - 1) {
+                codes[idx + 1].focus();
+            }
+
+        }
 
         if (e.key === "Backspace") {
 
-            if (code.value === "") {
-                if (index > 0) {
-                    codes[index - 1].focus();
-                }
-            } else {
-                code.value = "";
+            if (idx > 0 && code.value === "") {
+                codes[idx - 1].focus();
             }
 
         }
