@@ -6,9 +6,9 @@ codes.forEach((code, index) => {
 
     code.addEventListener("input", (e) => {
 
-        code.value = e.target.value.replace(/[^0-9]/g, "");
+        code.value = e.target.value.replace(/[^0-9]/g, "").slice(0, 1);
 
-        if (code.value !== "" && index < codes.length - 1) {
+        if (code.value && index < codes.length - 1) {
             codes[index + 1].focus();
         }
 
@@ -18,9 +18,10 @@ codes.forEach((code, index) => {
 
         if (e.key === "Backspace") {
 
-            if (code.value === "" && index > 0) {
-                codes[index - 1].value = "";
-                codes[index - 1].focus();
+            if (code.value === "") {
+                if (index > 0) {
+                    codes[index - 1].focus();
+                }
             } else {
                 code.value = "";
             }
@@ -29,4 +30,4 @@ codes.forEach((code, index) => {
 
     });
 
-});//your JS code here. If required.
+});
